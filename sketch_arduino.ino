@@ -105,7 +105,6 @@ void espWifiReceiveEvent(int count)
     i++;
   }
   do_it = 10;
-  Serial.println("koko");
 }
 void espWifiRequestEvent()
 {
