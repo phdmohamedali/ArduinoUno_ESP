@@ -128,7 +128,7 @@ void setup()
 
 void syncWithServer()
 {
-    http.begin("http://recsys.ystop.com.au/report1.php");
+    http.begin("http://put_your_url/report1.php");
     Serial.print("requesting>>>>>");
     int httpCode = http.GET();
     //Check the returning code
@@ -244,8 +244,8 @@ void get_probe_send(void) {
   }
   if (dist != 999 || temp != 999 || myList.size() > 0) {
     Serial.println("json:" + json);
-    http.begin("http://recsys.ystop.com.au/index_cwd.php");
-    //http.begin("http://192.168.20.23/index.php");
+    http.begin("http://put_your_url_her/index_cwd.php");
+
     http.addHeader("Content-Type", "application/json");
     http.POST(json);
     http.end();
