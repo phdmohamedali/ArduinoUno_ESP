@@ -1,12 +1,7 @@
 #include <Wire.h>
 //#include <hcsr04.h>
 #include <NewPing.h>
-//#include <JeeLib.h>
-//#include <avr/sleep.h>
-//#include <avr/power.h>
 
-//ISR(WDT_vect) { Sleepy::watchdogEvent(); }
-//the system will not work properly at 1 sec
 /**
  * wires mapping 
  */
@@ -53,25 +48,21 @@ void computeAndSend()
   temp = (int)(temperatureC);
   if(temp == 0){
     printf(&c_temp_dis[0], "%03d", 999);
-    //Serial.println("bala0");
   }else{
     if (t_temp <= (temp + err_t) && t_temp >= (temp - err_t))
     {
       sprintf(&c_temp_dis[0], "%03d", 999);
-      //Serial.println("bala1");
     }
     else
     {
       t_temp = temp; 
       sprintf(&c_temp_dis[0], "%03d", temp);   
-      //Serial.println("bala7");
     }
   }
   
   dist = (int)sonar.ping_cm();
   if(dist == 0){
     printf(&c_temp_dis[3], "%03d", 999);
-    //t_dist = dist; 
   }
   else{
     if (t_dist <= (dist + err_d) && t_dist >= (dist - err_d)){
@@ -82,8 +73,6 @@ void computeAndSend()
       sprintf(&c_temp_dis[3], "%03d", dist);     
     }
   }
-//  Serial.println(t_temp);
-//  Serial.println(temp);
     Serial.println(c_temp_dis);
 }
 void setup()
@@ -95,7 +84,6 @@ void setup()
   Wire.begin(I2CAddressESPWifi);
   Wire.onReceive(espWifiReceiveEvent);
   Wire.onRequest(espWifiRequestEvent);
-  //computeAndSend();
 }
 
 void loop()
@@ -103,7 +91,6 @@ void loop()
   if(do_it > 0)
   {
     computeAndSend();
-    Serial.println("doing it");
     do_it = 0;
   }
 }
@@ -115,7 +102,6 @@ void espWifiReceiveEvent(int count)
   while (Wire.available())
   {
     c = Wire.read();
-    //Serial.println(period_h_m_s[i]);
     i++;
   }
   do_it = 10;
